@@ -1,12 +1,48 @@
-
 body{
+    margin:0;
     background:black;
     color:white;
-    text-align:center;
     font-family:Arial,sans-serif;
-    padding-top:100px;
 }
 
-h1{
-    color:pink;
+#terminal-screen{
+    height:100vh;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+    background:black;
+}
+
+#terminal{
+    color:#00ff66;
+    font-size:18px;
+    line-height:1.8;
+}
+
+#startBtn{
+    padding:15px 30px;
+    border:none;
+    border-radius:30px;
+    background:#ff4081;
+    color:white;
+    cursor:pointer;
+}
+
+.hidden{
+    display:none;
+}
+
+#mainContent{
+    min-height:100vh;
+    text-align:center;
+    padding:50px;
+    background:linear-gradient(135deg,#0f0c29,#302b63,#24243e);
+}
+
+.love-letter{
+    max-width:800px;
+    margin:auto;
+    font-size:1.2rem;
+    line-height:2;
 }
