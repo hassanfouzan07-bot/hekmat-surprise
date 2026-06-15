@@ -9,56 +9,50 @@
 
 <body>
 
-<!-- TERMINAL SCREEN -->
-<div id="terminal-screen">
-    <pre id="terminal"></pre>
-
-    <button id="startBtn" style="display:none;">
-        🔓 Unlock Our Memory
-    </button>
+<!-- LOADING SCREEN -->
+<div id="loadingScreen">
+    <h1>💖 Loading Love System...</h1>
+    <p>Preparing something special for you ❤️</p>
 </div>
 
-<!-- MUSIC -->
-<audio id="bgMusic" loop>
-    <source src="music/haga-mestakhabeya.mp3" type="audio/mp3">
-</audio>
+<!-- UNLOCK SCREEN -->
+<div id="unlockScreen" class="hidden">
+    <h1>🔓 Unlock the Love</h1>
+    <button id="unlockBtn">Unlock ❤️</button>
+</div>
 
-<!-- MAIN CONTENT -->
-<div id="mainContent" class="hidden">
+<!-- OPEN SCREEN -->
+<div id="openScreen" class="hidden">
+    <h1>💌 Click to open the most beautiful girl in the world</h1>
+    <button id="openBtn">Open ❤️</button>
+</div>
 
-    <h1 class="glow">❤️ Hassan & Hekmat ❤️</h1>
+<!-- SLIDESHOW -->
+<div id="slideScreen" class="hidden">
+    <img id="slideImg">
+</div>
 
-    <!-- LOVE LETTER -->
-    <div class="glass love-letter">
-        <p id="typingText"></p>
-    </div>
+<!-- FINAL SCREEN -->
+<div id="finalScreen" class="hidden">
 
-    <!-- START MEMORY JOURNEY -->
-    <div class="glass">
-        <h2>💖 Our Memories</h2>
-        <button id="startGalleryBtn">▶ Start Memory Journey</button>
-    </div>
+    <h1>❤️ Hekmat Heart Hassan ❤️</h1>
 
-    <!-- SECRET -->
-    <div class="glass secret-box">
-        <button onclick="showSecret()">💌 Reveal Secret</button>
-        <p id="secretMessage"></p>
-    </div>
+    <p class="finalText">
+        In every heartbeat, there is you.<br>
+        In every silence, there is your name.<br>
+        You are not just a memory — you are my peace ❤️
+    </p>
 
-    <!-- QUESTION -->
-    <div class="glass question">
-        <h2>Will you keep making memories with me?</h2>
+    <button id="secretBtn">💌 Reveal Secret</button>
+    <p id="secretOutput"></p>
+
+    <div class="question">
+        <h2>Do you be with me till the end?</h2>
 
         <button class="yes-btn">Yes ❤️</button>
         <button class="no-btn" id="noBtn">No</button>
     </div>
 
-</div>
-
-<!-- FULLSCREEN VIEWER -->
-<div id="viewer" class="hidden">
-    <img id="viewerImg" src="">
-    <p id="viewerText">Click anywhere for next memory ❤️</p>
 </div>
 
 <script src="script.js"></script>
