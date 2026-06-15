@@ -22,7 +22,7 @@ startBtn.style.display = "block";
 
 typeTerminal();
 
-/* START EXPERIENCE */
+/* START */
 startBtn.addEventListener("click", () => {
 document.getElementById("terminal-screen").style.display = "none";
 document.getElementById("mainContent").classList.remove("hidden");
@@ -33,7 +33,7 @@ typeLetter();
 startHearts();
 });
 
-/* LOVE LETTER */
+/* LETTER */
 const message = 
 "Hekmat ❤️\n\nIf love had a language, mine would always speak your name.\nEvery moment with you feels like home.\n\n— Hassan";
 
@@ -51,7 +51,7 @@ clearInterval(interval);
 }, 50);
 }
 
-/* SECRET MESSAGE */
+/* SECRET */
 function showSecret() {
 const messages = [
 "You are my favorite notification ❤️",
@@ -64,23 +64,30 @@ document.getElementById("secretMessage").innerHTML =
 messages[Math.floor(Math.random() * messages.length)];
 }
 
-/* NO BUTTON ESCAPE */
+/* YES BUTTON */
+document.querySelector(".yes-btn").addEventListener("click", () => {
+alert("❤️ You just made my universe complete ❤️");
+});
+
+/* NO BUTTON FIXED (NO DISAPPEAR) */
 const noBtn = document.getElementById("noBtn");
 
 noBtn.addEventListener("mouseover", () => {
-const x = Math.random() * (window.innerWidth - 150);
-const y = Math.random() * (window.innerHeight - 100);
+
+const padding = 80;
+
+// keep inside visible screen always
+const maxX = window.innerWidth - noBtn.offsetWidth - padding;
+const maxY = window.innerHeight - noBtn.offsetHeight - padding;
+
+const x = Math.max(20, Math.random() * maxX);
+const y = Math.max(20, Math.random() * maxY);
 
 noBtn.style.left = x + "px";
 noBtn.style.top = y + "px";
 });
 
-/* YES BUTTON EFFECT */
-document.querySelector(".yes-btn").addEventListener("click", () => {
-alert("❤️ You just made my universe complete ❤️");
-});
-
-/* FLOATING HEARTS */
+/* HEARTS */
 function startHearts() {
 setInterval(() => {
 const heart = document.createElement("div");
@@ -88,7 +95,7 @@ heart.classList.add("heart");
 heart.innerHTML = "❤️";
 
 heart.style.left = Math.random() * 100 + "vw";
-heart.style.fontSize = Math.random() * 20 + 10 + "px";
+heart.style.fontSize = (Math.random() * 20 + 10) + "px";
 
 document.body.appendChild(heart);
 
