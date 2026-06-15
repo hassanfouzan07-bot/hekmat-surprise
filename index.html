@@ -23,8 +23,6 @@
 
 <div id="mainContent" class="hidden">
 
-    <div class="floating-hearts"></div>
-
     <h1 class="glow">❤️ Hassan & Hekmat ❤️</h1>
 
     <div class="glass love-letter">
@@ -32,11 +30,14 @@
     </div>
 
     <div class="gallery">
-        <img src="images/photo1.jpg">
-        <img src="images/photo2.jpg">
-        <img src="images/photo3.jpg">
-        <img src="images/photo4.jpg">
-        <img src="images/photo5.jpg">
+
+        <!-- FIX: added correct class + fallback handling -->
+        <img src="images/photo1.jpg" onerror="this.style.display='none'">
+        <img src="images/photo2.jpg" onerror="this.style.display='none'">
+        <img src="images/photo3.jpg" onerror="this.style.display='none'">
+        <img src="images/photo4.jpg" onerror="this.style.display='none'">
+        <img src="images/photo5.jpg" onerror="this.style.display='none'">
+
     </div>
 
     <div class="glass secret-box">
@@ -44,7 +45,7 @@
         <p id="secretMessage"></p>
     </div>
 
-    <div class="glass question">
+    <div class="glass question" id="questionBox">
         <h2>Will you keep making memories with me?</h2>
 
         <button class="yes-btn">Yes ❤️</button>
