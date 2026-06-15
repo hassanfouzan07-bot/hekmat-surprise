@@ -4,54 +4,53 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Hassan ❤️ Hekmat</title>
+
 <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
-<!-- LOADING -->
-<div id="loadingScreen">
-  <h1>💖 Loading Love System...</h1>
-  <p>Preparing something special for you ❤️</p>
+<div id="terminal-screen">
+
+<pre id="terminal"></pre>
+
+<button id="startBtn" style="display:none;">
+Unlock Secret ❤️
+</button>
+
 </div>
 
-<!-- UNLOCK -->
-<div id="unlockScreen" class="hidden">
-  <h1>🔓 Unlock the Love</h1>
-  <button id="unlockBtn">Unlock ❤️</button>
+<div id="mainContent" class="hidden">
+
+<h1>❤️ Hassan & Hekmat ❤️</h1>
+
+<div class="love-letter">
+<p id="typingText"></p>
 </div>
 
-<!-- OPEN -->
-<div id="openScreen" class="hidden">
-  <h1>💌 Click to open the most beautiful girl in the world</h1>
-  <button id="openBtn">Open ❤️</button>
+<div class="gallery">
+<img src="images/photo1.jpg" alt="">
+<img src="images/photo2.jpg" alt="">
+<img src="images/photo3.jpg" alt="">
+<img src="images/photo4.jpg" alt="">
+<img src="images/photo5.jpg" alt="">
 </div>
 
-<!-- SLIDESHOW -->
-<div id="slideScreen" class="hidden">
-  <img id="slideImg" alt="memory">
+<div class="secret-box">
+<button onclick="showSecret()">Reveal Secret ❤️</button>
+<p id="secretMessage"></p>
 </div>
 
-<!-- FINAL -->
-<div id="finalScreen" class="hidden">
+<div class="question">
+<h2>Will you keep making memories with me?</h2>
 
-  <h1>❤️ Hekmat Heart Hassan ❤️</h1>
-
-  <p class="text">
-    You are my peace, my comfort, my happiness ❤️<br>
-    Every moment with you feels like home.
-  </p>
-
-  <button id="secretBtn">💌 Reveal Secret</button>
-  <p id="secretOutput"></p>
-
-  <h2>Do you be with me till the end?</h2>
-
-  <button class="yes-btn">Yes ❤️</button>
-  <button id="noBtn" class="no-btn">No</button>
+<button class="yes-btn">Yes ❤️</button>
+<button class="no-btn" id="noBtn">No</button>
+</div>
 
 </div>
 
 <script src="script.js"></script>
+
 </body>
 </html>
