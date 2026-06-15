@@ -73,7 +73,7 @@ const letter = `
 
 شكرًا إنك جزء من حياتي.
 
-❤️ حسن
+ حكمت ❤️ حسن
 `;
 
 function typeLetter(){
