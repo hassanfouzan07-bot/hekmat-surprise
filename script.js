@@ -1,35 +1,50 @@
 /* =========================
-   SCREEN FLOW
+   SAFE START (NO STUCK EVER)
+========================= */
+
+document.addEventListener("DOMContentLoaded", () => {
+
+/* =========================
+   SCREENS
+========================= */
+
+const loadingScreen = document.getElementById("loadingScreen");
+const unlockScreen = document.getElementById("unlockScreen");
+const openScreen = document.getElementById("openScreen");
+const slideScreen = document.getElementById("slideScreen");
+const finalScreen = document.getElementById("finalScreen");
+
+/* =========================
+   STEP 1: LOADING → UNLOCK
 ========================= */
 
 setTimeout(() => {
-document.getElementById("loadingScreen").classList.add("hidden");
-document.getElementById("unlockScreen").classList.remove("hidden");
+if (loadingScreen) loadingScreen.classList.add("hidden");
+if (unlockScreen) unlockScreen.classList.remove("hidden");
 }, 2500);
 
 /* =========================
-   UNLOCK SCREEN
+   STEP 2: UNLOCK BUTTON
 ========================= */
 
-document.getElementById("unlockBtn").addEventListener("click", () => {
-document.getElementById("unlockScreen").classList.add("hidden");
-document.getElementById("openScreen").classList.remove("hidden");
+document.getElementById("unlockBtn")?.addEventListener("click", () => {
+unlockScreen.classList.add("hidden");
+openScreen.classList.remove("hidden");
 });
 
 /* =========================
-   OPEN SCREEN
+   STEP 3: OPEN BUTTON
 ========================= */
 
-document.getElementById("openBtn").addEventListener("click", () => {
-document.getElementById("openScreen").classList.add("hidden");
-document.getElementById("slideScreen").classList.remove("hidden");
-
+document.getElementById("openBtn")?.addEventListener("click", () => {
+openScreen.classList.add("hidden");
+slideScreen.classList.remove("hidden");
 startSlideshow();
 startHearts();
 });
 
 /* =========================
-   SLIDESHOW (5 IMAGES)
+   SLIDESHOW
 ========================= */
 
 const images = [
@@ -44,9 +59,11 @@ let index = 0;
 const img = document.getElementById("slideImg");
 
 function startSlideshow() {
+if (!img) return;
+
 img.src = images[index];
 
-let interval = setInterval(() => {
+const interval = setInterval(() => {
 index++;
 
 if (index < images.length) {
@@ -55,13 +72,11 @@ img.style.opacity = 0;
 setTimeout(() => {
 img.src = images[index];
 img.style.opacity = 1;
-}, 500);
+}, 400);
 
 } else {
 clearInterval(interval);
-setTimeout(() => {
-showFinal();
-}, 1500);
+setTimeout(showFinal, 1200);
 }
 
 }, 5000);
@@ -72,8 +87,8 @@ showFinal();
 ========================= */
 
 function showFinal() {
-document.getElementById("slideScreen").classList.add("hidden");
-document.getElementById("finalScreen").classList.remove("hidden");
+slideScreen.classList.add("hidden");
+finalScreen.classList.remove("hidden");
 }
 
 /* =========================
@@ -97,7 +112,7 @@ setTimeout(() => heart.remove(), 6000);
 }
 
 /* =========================
-   SECRET (5 WORDS ONE BY ONE)
+   SECRET WORDS
 ========================= */
 
 const secretWords = [
@@ -110,33 +125,34 @@ const secretWords = [
 
 let sIndex = 0;
 
-document.getElementById("secretBtn").addEventListener("click", () => {
-
+document.getElementById("secretBtn")?.addEventListener("click", () => {
 document.getElementById("secretOutput").innerHTML =
 secretWords[sIndex];
 
 sIndex++;
 
-if (sIndex >= secretWords.length) {
-sIndex = 0;
-}
-
+if (sIndex >= secretWords.length) sIndex = 0;
 });
 
 /* =========================
-   YES / NO BUTTON LOGIC
+   BUTTONS
 ========================= */
 
-document.querySelector(".yes-btn").addEventListener("click", () => {
+document.querySelector(".yes-btn")?.addEventListener("click", () => {
 alert("❤️ Forever starts now ❤️");
 });
 
+/* NO BUTTON RUN AWAY (SAFE) */
 const noBtn = document.getElementById("noBtn");
 
+if (noBtn) {
 document.addEventListener("mousemove", (e) => {
 const x = e.clientX + 40;
 const y = e.clientY + 40;
 
 noBtn.style.left = x + "px";
 noBtn.style.top = y + "px";
+});
+}
+
 });
