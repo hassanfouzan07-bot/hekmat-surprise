@@ -1,112 +1,37 @@
-// TERMINAL
-const terminalText = [
-"Booting emotional system...",
-"Loading love protocol ❤️",
-"Connecting Hassan → Hekmat...",
-"Decrypting memories...",
-"System Ready 💖"
-];
+/* =========================
+   SCREEN FLOW
+========================= */
 
-let i = 0;
-let terminal = document.getElementById("terminal");
-let startBtn = document.getElementById("startBtn");
+setTimeout(() => {
+document.getElementById("loadingScreen").classList.add("hidden");
+document.getElementById("unlockScreen").classList.remove("hidden");
+}, 2500);
 
-function typeTerminal() {
-if (i < terminalText.length) {
-terminal.innerHTML += terminalText[i] + "\n";
-i++;
-setTimeout(typeTerminal, 1200);
-} else {
-startBtn.style.display = "block";
-}
-}
+/* =========================
+   UNLOCK SCREEN
+========================= */
 
-typeTerminal();
+document.getElementById("unlockBtn").addEventListener("click", () => {
+document.getElementById("unlockScreen").classList.add("hidden");
+document.getElementById("openScreen").classList.remove("hidden");
+});
 
-/* START EXPERIENCE */
-startBtn.addEventListener("click", () => {
-document.getElementById("terminal-screen").style.display = "none";
-document.getElementById("mainContent").classList.remove("hidden");
+/* =========================
+   OPEN SCREEN
+========================= */
 
-document.getElementById("bgMusic").play();
-typeLetter();
+document.getElementById("openBtn").addEventListener("click", () => {
+document.getElementById("openScreen").classList.add("hidden");
+document.getElementById("slideScreen").classList.remove("hidden");
+
+startSlideshow();
 startHearts();
 });
 
-/* LOVE LETTER */
-const message = 
-"Hekmat ❤️\n\nIf love had a language, mine would always speak your name.\nEvery moment with you feels like home.\n\n— Hassan";
+/* =========================
+   SLIDESHOW (5 IMAGES)
+========================= */
 
-let j = 0;
-function typeLetter() {
-let el = document.getElementById("typingText");
-
-let interval = setInterval(() => {
-if (j < message.length) {
-el.innerHTML += message[j];
-j++;
-} else {
-clearInterval(interval);
-}
-}, 50);
-}
-
-/* SECRET */
-function showSecret() {
-const messages = [
-"You are my favorite notification ❤️",
-"Memory unlocked: You = Happiness",
-"System error: No one like you found 💖",
-"You are my safest place"
-];
-
-document.getElementById("secretMessage").innerHTML =
-messages[Math.floor(Math.random() * messages.length)];
-}
-
-/* YES BUTTON */
-document.querySelector(".yes-btn").addEventListener("click", () => {
-alert("❤️ You just made my universe complete ❤️");
-});
-
-/* NO BUTTON (SAFE MOVE) */
-const noBtn = document.getElementById("noBtn");
-
-noBtn.addEventListener("mouseover", () => {
-
-const padding = 100;
-
-const maxX = window.innerWidth - noBtn.offsetWidth - padding;
-const maxY = window.innerHeight - noBtn.offsetHeight - padding;
-
-const x = Math.max(20, Math.random() * maxX);
-const y = Math.max(20, Math.random() * maxY);
-
-noBtn.style.left = x + "px";
-noBtn.style.top = y + "px";
-});
-
-/* HEARTS */
-function startHearts() {
-setInterval(() => {
-const heart = document.createElement("div");
-heart.classList.add("heart");
-heart.innerHTML = "❤️";
-
-heart.style.position = "fixed";
-heart.style.left = Math.random() * 100 + "vw";
-heart.style.fontSize = (Math.random() * 20 + 10) + "px";
-heart.style.color = "#ff4081";
-heart.style.animation = "floatUp 6s linear forwards";
-
-document.body.appendChild(heart);
-
-setTimeout(() => heart.remove(), 6000);
-
-}, 300);
-}
-
-/* MEMORY SLIDESHOW */
 const images = [
 "./images/photo1.jpg",
 "./images/photo2.jpg",
@@ -115,38 +40,103 @@ const images = [
 "./images/photo5.jpg"
 ];
 
-let currentIndex = 0;
+let index = 0;
+const img = document.getElementById("slideImg");
 
-const viewer = document.getElementById("viewer");
-const viewerImg = document.getElementById("viewerImg");
-const startGalleryBtn = document.getElementById("startGalleryBtn");
+function startSlideshow() {
+img.src = images[index];
 
-/* FIX: attach after DOM exists */
-document.addEventListener("DOMContentLoaded", () => {
-const btn = document.getElementById("startGalleryBtn");
+let interval = setInterval(() => {
+index++;
 
-btn.addEventListener("click", () => {
-viewer.classList.remove("hidden");
-currentIndex = 0;
-viewerImg.src = images[currentIndex];
-});
-});
-
-/* NEXT IMAGE ON CLICK */
-document.getElementById("viewer").addEventListener("click", () => {
-currentIndex++;
-
-if (currentIndex < images.length) {
-
-viewerImg.style.opacity = 0;
+if (index < images.length) {
+img.style.opacity = 0;
 
 setTimeout(() => {
-viewerImg.src = images[currentIndex];
-viewerImg.style.opacity = 1;
-}, 200);
+img.src = images[index];
+img.style.opacity = 1;
+}, 500);
 
 } else {
-viewer.classList.add("hidden");
-alert("💖 End of our memories ❤️");
+clearInterval(interval);
+setTimeout(() => {
+showFinal();
+}, 1500);
 }
+
+}, 5000);
+}
+
+/* =========================
+   FINAL SCREEN
+========================= */
+
+function showFinal() {
+document.getElementById("slideScreen").classList.add("hidden");
+document.getElementById("finalScreen").classList.remove("hidden");
+}
+
+/* =========================
+   HEARTS
+========================= */
+
+function startHearts() {
+setInterval(() => {
+const heart = document.createElement("div");
+heart.classList.add("heart");
+heart.innerHTML = "❤️";
+
+heart.style.left = Math.random() * 100 + "vw";
+heart.style.fontSize = (Math.random() * 20 + 10) + "px";
+
+document.body.appendChild(heart);
+
+setTimeout(() => heart.remove(), 6000);
+
+}, 300);
+}
+
+/* =========================
+   SECRET (5 WORDS ONE BY ONE)
+========================= */
+
+const secretWords = [
+"You are my peace",
+"You are my home",
+"You are my dream",
+"You are my smile",
+"You are my forever"
+];
+
+let sIndex = 0;
+
+document.getElementById("secretBtn").addEventListener("click", () => {
+
+document.getElementById("secretOutput").innerHTML =
+secretWords[sIndex];
+
+sIndex++;
+
+if (sIndex >= secretWords.length) {
+sIndex = 0;
+}
+
+});
+
+/* =========================
+   YES / NO BUTTON LOGIC
+========================= */
+
+document.querySelector(".yes-btn").addEventListener("click", () => {
+alert("❤️ Forever starts now ❤️");
+});
+
+const noBtn = document.getElementById("noBtn");
+
+document.addEventListener("mousemove", (e) => {
+const x = e.clientX + 40;
+const y = e.clientY + 40;
+
+noBtn.style.left = x + "px";
+noBtn.style.top = y + "px";
 });
