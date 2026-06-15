@@ -2,19 +2,19 @@ const terminal = document.getElementById("terminal");
 const startBtn = document.getElementById("startBtn");
 
 const lines = [
-"Booting love.exe...",
+"تشغيل love.exe...",
 "",
-"Loading memories... ████████ 100%",
-"Loading happiness... ████████ 100%",
-"Loading laughter... ████████ 100%",
+"تحميل الذكريات... ████████ 100%",
+"تحميل السعادة... ████████ 100%",
+"تحميل الضحك... ████████ 100%",
 "",
-"Searching for the most beautiful girl...",
+"جاري البحث عن أجمل بنت...",
 "",
-"Match Found ❤️",
+"تم العثور على المطابقة ❤️",
 "",
-"Name: Hekmat",
-"Status: Irreplaceable",
-"Owner of Hassan's heart: Confirmed ✓"
+"الاسم: حكمت",
+"الحالة: لا تُعوّض",
+"مالكة قلب حسن: تم التأكيد ✓"
 ];
 
 let i = 0;
@@ -52,28 +52,28 @@ setInterval(createHeart,700);
 });
 
 const letter = `
-Dear Hekmat,
+عزيزتي حكمت،
 
-Out of all the people in this world,
-somehow our paths crossed.
+من بين كل الناس في الدنيا،
+بطريقة ما طرقنا اتقابلت.
 
-More than a year has passed,
-yet every memory still feels special.
+عدى أكتر من سنة،
+وبرضه كل ذكرى لسه حلوة زي الأول.
 
-Every laugh,
-every conversation,
-every moment together
-has become part of a story
-I never want to lose.
+كل ضحكة،
+كل كلام،
+كل لحظة مع بعض
+بقت جزء من قصة
+مش عايز أضيعها.
 
-This little project isn't just code.
+المشروع الصغير ده مش مجرد كود.
 
-It's my way of turning feelings
-into something you can see.
+ده طريقتي أحول المشاعر
+لحاجة تقدري تشوفيها.
 
-Thank you for being part of my life.
+شكرًا إنك جزء من حياتي.
 
-❤️ Hassan
+❤️ حسن
 `;
 
 function typeLetter(){
@@ -125,11 +125,11 @@ heart.remove();
 
 const messages = [
 
-"❤️ You are my favorite notification.",
-"❤️ Achievement unlocked: Making Hassan smile.",
-"❤️ Error: Nobody better than Hekmat found.",
-"❤️ Hidden Memory Found.",
-"❤️ You make ordinary days feel special."
+"❤️ أنتِ الإشعار المفضل عندي.",
+"❤️ تم فتح إنجاز: خلتِ حسن يبتسم.",
+"❤️ خطأ: مفيش حد أحسن من حكمت.",
+"❤️ تم العثور على ذكرى مخفية.",
+"❤️ بتخلي الأيام العادية مميزة."
 
 ];
 
@@ -165,7 +165,7 @@ document
 .addEventListener("click",()=>{
 
 alert(
-"❤️ Thank you for being part of my story, Hekmat ❤️"
+"❤️ شكرًا إنك جزء من قصتي يا حكمت ❤️"
 );
 
 for(let i=0;i<100;i++){
