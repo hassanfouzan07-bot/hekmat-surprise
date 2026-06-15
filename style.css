@@ -1,100 +1,63 @@
-* {
-margin:0;
-padding:0;
-box-sizing:border-box;
-font-family:Arial;
-}
-
 body {
+margin:0;
 background:black;
 color:white;
-overflow:hidden;
 text-align:center;
+font-family:Arial;
+overflow:hidden;
 }
 
-/* SCREENS */
-.hidden { display:none; }
+.hidden {
+display:none;
+}
 
-/* LOADING */
-#loadingScreen {
+#loadingScreen, #unlockScreen, #openScreen {
 height:100vh;
 display:flex;
 flex-direction:column;
 justify-content:center;
 align-items:center;
-background:black;
 }
 
-/* BUTTONS */
 button {
-padding:15px 30px;
+padding:15px 25px;
 border:none;
-border-radius:30px;
-cursor:pointer;
-font-size:18px;
-margin-top:20px;
+border-radius:20px;
 background:#ff4081;
 color:white;
+font-size:18px;
+cursor:pointer;
+margin-top:20px;
 }
 
-/* SLIDESHOW */
 #slideScreen {
 height:100vh;
 display:flex;
 justify-content:center;
 align-items:center;
-background:black;
 }
 
 #slideImg {
 max-width:90%;
 max-height:90%;
 border-radius:20px;
-transition:1s;
 }
 
-/* FINAL SCREEN */
 #finalScreen {
-height:100vh;
 padding:40px;
-background:radial-gradient(circle,#1a1a2e,#000);
 }
 
-.finalText {
-margin:20px;
-font-size:20px;
-line-height:2;
+.no-btn {
+position:fixed;
 }
 
-/* HEARTS */
 .heart {
 position:fixed;
-color:#ff4081;
-font-size:20px;
-animation:floatUp 6s linear forwards;
+color:pink;
+animation: floatUp 5s linear;
 }
 
 @keyframes floatUp {
-from {transform:translateY(0); opacity:1;}
-to {transform:translateY(-100vh); opacity:0;}
-}
-
-/* NO BUTTON */
-.no-btn {
-position:fixed;
-background:white;
-color:black;
-}
-
-/* YES BUTTON */
-.yes-btn {
-background:#ff4081;
-color:white;
-}
-
-/* SECRET OUTPUT */
-#secretOutput {
-margin-top:15px;
-font-size:18px;
-color:#ff79c6;
+from {transform:translateY(0);}
+to {transform:translateY(-100vh);}
 }
