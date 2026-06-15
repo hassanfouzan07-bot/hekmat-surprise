@@ -1,52 +1,33 @@
-/* =========================
-   SAFE START (NO STUCK EVER)
-========================= */
-
 document.addEventListener("DOMContentLoaded", () => {
 
-/* =========================
-   SCREENS
-========================= */
+/* ELEMENTS */
+const loading = document.getElementById("loadingScreen");
+const unlock = document.getElementById("unlockScreen");
+const open = document.getElementById("openScreen");
+const slide = document.getElementById("slideScreen");
+const final = document.getElementById("finalScreen");
+const img = document.getElementById("slideImg");
 
-const loadingScreen = document.getElementById("loadingScreen");
-const unlockScreen = document.getElementById("unlockScreen");
-const openScreen = document.getElementById("openScreen");
-const slideScreen = document.getElementById("slideScreen");
-const finalScreen = document.getElementById("finalScreen");
-
-/* =========================
-   STEP 1: LOADING → UNLOCK
-========================= */
-
+/* STEP 1 */
 setTimeout(() => {
-if (loadingScreen) loadingScreen.classList.add("hidden");
-if (unlockScreen) unlockScreen.classList.remove("hidden");
-}, 2500);
+loading.classList.add("hidden");
+unlock.classList.remove("hidden");
+}, 2000);
 
-/* =========================
-   STEP 2: UNLOCK BUTTON
-========================= */
+/* STEP 2 */
+document.getElementById("unlockBtn").onclick = () => {
+unlock.classList.add("hidden");
+open.classList.remove("hidden");
+};
 
-document.getElementById("unlockBtn")?.addEventListener("click", () => {
-unlockScreen.classList.add("hidden");
-openScreen.classList.remove("hidden");
-});
-
-/* =========================
-   STEP 3: OPEN BUTTON
-========================= */
-
-document.getElementById("openBtn")?.addEventListener("click", () => {
-openScreen.classList.add("hidden");
-slideScreen.classList.remove("hidden");
+/* STEP 3 */
+document.getElementById("openBtn").onclick = () => {
+open.classList.add("hidden");
+slide.classList.remove("hidden");
 startSlideshow();
-startHearts();
-});
+};
 
-/* =========================
-   SLIDESHOW
-========================= */
-
+/* SLIDES */
 const images = [
 "./images/photo1.jpg",
 "./images/photo2.jpg",
@@ -55,104 +36,45 @@ const images = [
 "./images/photo5.jpg"
 ];
 
-let index = 0;
-const img = document.getElementById("slideImg");
+let i = 0;
 
 function startSlideshow() {
-if (!img) return;
+img.src = images[i];
 
-img.src = images[index];
-
-const interval = setInterval(() => {
-index++;
-
-if (index < images.length) {
-img.style.opacity = 0;
-
-setTimeout(() => {
-img.src = images[index];
-img.style.opacity = 1;
-}, 400);
-
-} else {
-clearInterval(interval);
-setTimeout(showFinal, 1200);
-}
-
-}, 5000);
-}
-
-/* =========================
-   FINAL SCREEN
-========================= */
-
-function showFinal() {
-slideScreen.classList.add("hidden");
-finalScreen.classList.remove("hidden");
-}
-
-/* =========================
-   HEARTS
-========================= */
-
-function startHearts() {
 setInterval(() => {
-const heart = document.createElement("div");
-heart.classList.add("heart");
-heart.innerHTML = "❤️";
+i++;
 
-heart.style.left = Math.random() * 100 + "vw";
-heart.style.fontSize = (Math.random() * 20 + 10) + "px";
-
-document.body.appendChild(heart);
-
-setTimeout(() => heart.remove(), 6000);
-
-}, 300);
+if (i < images.length) {
+img.src = images[i];
+} else {
+slide.classList.add("hidden");
+final.classList.remove("hidden");
+}
+}, 4000);
 }
 
-/* =========================
-   SECRET WORDS
-========================= */
+/* SECRET */
+let words = ["You are my peace","You are my home","You are my dream","You are my smile","You are my forever"];
+let w = 0;
 
-const secretWords = [
-"You are my peace",
-"You are my home",
-"You are my dream",
-"You are my smile",
-"You are my forever"
-];
+document.getElementById("secretBtn").onclick = () => {
+document.getElementById("secretOutput").innerText = words[w];
+w = (w + 1) % words.length;
+};
 
-let sIndex = 0;
-
-document.getElementById("secretBtn")?.addEventListener("click", () => {
-document.getElementById("secretOutput").innerHTML =
-secretWords[sIndex];
-
-sIndex++;
-
-if (sIndex >= secretWords.length) sIndex = 0;
-});
-
-/* =========================
-   BUTTONS
-========================= */
-
-document.querySelector(".yes-btn")?.addEventListener("click", () => {
+/* YES */
+document.querySelector(".yes-btn").onclick = () => {
 alert("❤️ Forever starts now ❤️");
-});
+};
 
-/* NO BUTTON RUN AWAY (SAFE) */
+/* NO BUTTON ESCAPE */
 const noBtn = document.getElementById("noBtn");
 
-if (noBtn) {
 document.addEventListener("mousemove", (e) => {
-const x = e.clientX + 40;
-const y = e.clientY + 40;
+if (!noBtn) return;
 
-noBtn.style.left = x + "px";
-noBtn.style.top = y + "px";
+noBtn.style.left = (e.clientX + 20) + "px";
+noBtn.style.top = (e.clientY + 20) + "px";
 });
-}
 
 });
