@@ -1,56 +1,33 @@
 <!DOCTYPE html>
-<html lang="ar">
+<html>
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>حسن ❤️ حكمت</title>
+  <title>Our Journey ❤️</title>
+  <link rel="stylesheet" href="style.css">
 
-<link rel="stylesheet" href="style.css">
+  <script src="https://cdn.emailjs.com/dist/email.min.js"></script>
+  <script>
+    (function(){
+      emailjs.init("YOUR_PUBLIC_KEY");
+    })();
+  </script>
 </head>
 
 <body>
 
-<div id="terminal-screen">
+<div id="app">
 
-<pre id="terminal"></pre>
+  <h1 id="title">❤️ Welcome to Our Little Journey</h1>
+  <p id="subtitle">Answer honestly… or play along 😏</p>
 
-<button id="startBtn" style="display:none;">
-افتح السر ❤️
-</button>
+  <h2 id="question">Do you believe meeting someone can change life? 💫</h2>
 
-</div>
-
-<div id="mainContent" class="hidden">
-
-<h1>❤️ حسن & حكمت ❤️</h1>
-
-<div class="love-letter">
-<p id="typingText"></p>
-</div>
-
-<div class="gallery">
-<img src="images/photo1.jpg" alt="">
-<img src="images/photo2.jpg" alt="">
-<img src="images/photo3.jpg" alt="">
-<img src="images/photo4.jpg" alt="">
-<img src="images/photo5.jpg" alt="">
-</div>
-
-<div class="secret-box">
-<button onclick="showSecret()">اكشف السر ❤️</button>
-<p id="secretMessage"></p>
-</div>
-
-<div class="question">
-<h2>هتفضل تعمل ذكريات معايا؟</h2>
-
-<button class="yes-btn">أيوه ❤️</button>
-<button class="no-btn" id="noBtn">لا</button>
-</div>
+  <div class="buttons">
+    <button id="yesBtn">Yes ❤️</button>
+    <button id="noBtn">No 😏</button>
+  </div>
 
 </div>
 
 <script src="script.js"></script>
-
 </body>
 </html>
