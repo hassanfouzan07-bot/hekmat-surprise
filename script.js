@@ -7,108 +7,150 @@ const questions = [
 ];
 
 let index = 0;
-let answers = [];
 
 const questionEl = document.getElementById("question");
 const yesBtn = document.getElementById("yesBtn");
 const noBtn = document.getElementById("noBtn");
 
+// =======================
+// INIT EMAILJS
+// =======================
+// ⚠️ Replace this later with your PUBLIC KEY from EmailJS dashboard
+emailjs.init("Ax_kppGI5ZZq01auI");
+
+// =======================
 // YES BUTTON
+// =======================
 yesBtn.addEventListener("click", () => {
-  answers.push("Yes ❤️");
   index++;
 
   if (index < questions.length) {
     questionEl.innerText = questions[index];
   } else {
-    showFinal();
+    showFinalScreen();
   }
 });
 
-// NO BUTTON ESCAPE
+// =======================
+// NO BUTTON (RUNS AWAY 😏)
+// =======================
 noBtn.addEventListener("mouseover", () => {
-  const x = Math.random() * (window.innerWidth - 100);
-  const y = Math.random() * (window.innerHeight - 100);
+  const x = Math.random() * (window.innerWidth - 120);
+  const y = Math.random() * (window.innerHeight - 120);
 
   noBtn.style.left = x + "px";
   noBtn.style.top = y + "px";
+
+  noBtn.innerText = "Catch me 😏";
 });
 
+// =======================
 // FINAL SCREEN
-function showFinal() {
+// =======================
+function showFinalScreen() {
   document.getElementById("app").innerHTML = `
     <h1>❤️ Journey Completed ❤️</h1>
-    <p>You’ve created something beautiful with your answers.</p>
+    <p>You didn’t just answer questions… you created something beautiful.</p>
 
-    <button onclick="generateLove()">Generate Love Summary 💌</button>
+    <button onclick="generateLove()">
+      💌 Generate Love Summary
+    </button>
 
     <div id="output" style="margin-top:20px;"></div>
   `;
 }
 
-// GENERATE MESSAGE
+// =======================
+// LOVE MESSAGE
+// =======================
 function generateLove() {
 
-  const message = `
-From the moment this journey started, every answer felt like a step closer between two hearts.
+  const finalMessage = `
+❤️ OUR LOVE JOURNEY SUMMARY ❤️
 
-What began as simple questions became a memory — something soft, meaningful, and real.
+Dear Hekmat,
 
-Maybe this wasn’t just a website… maybe it was a small story we created together ❤️
+From the very beginning, this journey felt different.
+
+Every answer you gave became a small step closer between two hearts.
+
+What started as simple questions slowly turned into something meaningful — a memory created through emotion and connection.
+
+Maybe it was just a website…
+but sometimes even simple things can feel special when shared with the right person.
+
+Thank you, Hekmat ❤️
+
+— Hassan
 `;
 
   document.getElementById("output").innerHTML = `
-    <p style="background:white;color:black;padding:15px;border-radius:10px;">
-      ${message}
+    <p style="background:white;color:black;padding:15px;border-radius:10px;line-height:1.6;">
+      ${finalMessage}
     </p>
 
-    <button onclick="downloadPDF('${encodeURIComponent(message)}')">
-      Download PDF 💌
+    <button onclick="downloadPDF(finalMessage)">
+      📄 Download PDF
     </button>
 
-    <button onclick="shareWhatsApp('${encodeURIComponent(message)}')">
-      Share on WhatsApp 📱
+    <button onclick="shareWhatsApp(finalMessage)">
+      📱 WhatsApp Share
+    </button>
+
+    <button onclick="sendEmail(finalMessage)">
+      💌 Send Email
     </button>
   `;
-
-  sendEmail(message);
 }
 
+// =======================
 // PDF DOWNLOAD
-function downloadPDF(textEncoded) {
+// =======================
+function downloadPDF(text) {
 
   const { jsPDF } = window.jspdf;
   const doc = new jsPDF();
 
-  const text = decodeURIComponent(textEncoded);
-
   doc.setFontSize(12);
-  doc.text("❤️ Our Love Journey ❤️", 10, 20);
+  doc.text("❤️ Love Journey - Hekmat ❤️", 10, 20);
 
   const lines = doc.splitTextToSize(text, 180);
   doc.text(lines, 10, 40);
 
-  doc.save("Love_Journey.pdf");
+  doc.save("Hekmat_Love_Journey.pdf");
 }
 
+// =======================
 // WHATSAPP SHARE
-function shareWhatsApp(textEncoded) {
-  const text = decodeURIComponent(textEncoded);
+// =======================
+function shareWhatsApp(text) {
 
-  const url = "https://wa.me/?text=" + encodeURIComponent(text + "\n\n❤️ Created with love");
+  const url = "https://wa.me/?text=" + encodeURIComponent(
+    text + "\n\n❤️ Created with love by Hassan"
+  );
 
   window.open(url, "_blank");
 }
 
-// EMAIL (EmailJS)
+// =======================
+// EMAILJS SEND (UPDATED WITH YOUR IDs)
+// =======================
 function sendEmail(finalMessage) {
 
-  emailjs.send("YOUR_SERVICE_ID", "YOUR_TEMPLATE_ID", {
-    to_email: "her_email@example.com",
-    message: finalMessage
+  emailjs.send("service_nnc0er7", "template_neqxits", {
+
+    email: "hassanfouzan07@gmail.com",   // recipient email
+    message: finalMessage,
+
+    from_name: "Hassan",
+    reply_to: "hassanfouzan07@gmail.com",
+    cc: "",
+    bcc: ""
+
   }).then(() => {
-    console.log("Email sent ❤️");
-  }).catch(err => {
-    console.log("Email error", err);
+    alert("Email sent successfully ❤️");
+  }).catch((err) => {
+    console.log("Email error:", err);
+    alert("Failed to send email ❌");
   });
 }
