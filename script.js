@@ -31,7 +31,7 @@ yesBtn.addEventListener("click", () => {
 });
 
 // =======================
-// NO BUTTON (RUNS AWAY 😏)
+// NO BUTTON (RUN AWAY 😏)
 // =======================
 noBtn.addEventListener("mouseover", () => {
   const x = Math.random() * (window.innerWidth - 120);
@@ -39,8 +39,6 @@ noBtn.addEventListener("mouseover", () => {
 
   noBtn.style.left = x + "px";
   noBtn.style.top = y + "px";
-
-  noBtn.innerText = "Catch me 😏";
 });
 
 // =======================
@@ -49,7 +47,7 @@ noBtn.addEventListener("mouseover", () => {
 function showFinalScreen() {
   document.getElementById("app").innerHTML = `
     <h1>❤️ Journey Completed ❤️</h1>
-    <p>You didn’t just answer questions… you created something beautiful.</p>
+    <p>You created something beautiful… now let’s save it 💌</p>
 
     <button onclick="generateLove()">
       💌 Generate Love Summary
@@ -60,7 +58,7 @@ function showFinalScreen() {
 }
 
 // =======================
-// LOVE MESSAGE
+// GENERATE LOVE MESSAGE
 // =======================
 function generateLove() {
 
@@ -73,10 +71,10 @@ From the very beginning, this journey felt different.
 
 Every answer you gave became a small step closer between two hearts.
 
-What started as simple questions slowly turned into something meaningful — a memory created through emotion and connection.
+What started as simple questions slowly turned into something meaningful.
 
 Maybe it was just a website…
-but sometimes even simple things can feel special when shared with the right person.
+but it became a memory.
 
 Thank you, Hekmat ❤️
 
@@ -84,15 +82,19 @@ Thank you, Hekmat ❤️
 `;
 
   document.getElementById("output").innerHTML = `
-    <p style="
-      background:white;
-      color:black;
-      padding:15px;
-      border-radius:10px;
-      line-height:1.6;
-    ">
+    <p style="background:white;color:black;padding:15px;border-radius:10px;line-height:1.6;">
       ${finalMessage}
     </p>
+
+    <input id="emailInput" type="email"
+      placeholder="Enter your email ❤️"
+      style="padding:10px;width:80%;border-radius:10px;border:1px solid #ccc;">
+
+    <br>
+
+    <button onclick="sendEmail(finalMessage)">
+      💌 Send Email
+    </button>
 
     <button onclick="downloadPDF(finalMessage)">
       📄 Download PDF
@@ -101,28 +103,51 @@ Thank you, Hekmat ❤️
     <button onclick="shareWhatsApp(finalMessage)">
       📱 WhatsApp Share
     </button>
-
-    <button onclick="sendEmail(finalMessage)">
-      💌 Send Email
-    </button>
   `;
 }
 
 // =======================
-// PDF DOWNLOAD (FIXED - NO EMOJI ERROR)
+// EMAIL SEND
+// =======================
+function sendEmail(finalMessage) {
+
+  const userEmail = document.getElementById("emailInput").value;
+
+  if (!userEmail) {
+    alert("Please enter email ❤️");
+    return;
+  }
+
+  emailjs.send("service_nnc0er7", "template_neqxits", {
+
+    email: userEmail,
+    message: finalMessage,
+
+    from_name: "Hassan",
+    reply_to: "hassanfouzan07@gmail.com",
+    cc: "",
+    bcc: ""
+
+  }).then(() => {
+    alert("💌 Email sent successfully!");
+  }).catch((err) => {
+    console.log(err);
+    alert("Failed to send email ❌");
+  });
+}
+
+// =======================
+// PDF DOWNLOAD (FIXED)
 // =======================
 function downloadPDF(text) {
 
   const { jsPDF } = window.jspdf;
   const doc = new jsPDF();
 
-  // 🔥 FIX: remove emojis to avoid corrupted PDF text
   const cleanText = text.replace(/[\u{1F300}-\u{1FAFF}]/gu, "");
 
-  doc.setFont("helvetica", "normal");
   doc.setFontSize(12);
-
-  doc.text("Our Love Journey - Hekmat", 10, 20);
+  doc.text("Love Journey - Hekmat", 10, 20);
 
   const lines = doc.splitTextToSize(cleanText, 180);
   doc.text(lines, 10, 40);
@@ -140,29 +165,4 @@ function shareWhatsApp(text) {
   );
 
   window.open(url, "_blank");
-}
-
-// =======================
-// EMAILJS SEND
-// =======================
-function sendEmail(finalMessage) {
-
-  const userEmail = "hassanfouzan07@gmail.com";
-
-  emailjs.send("service_nnc0er7", "template_neqxits", {
-
-    email: userEmail,        // {{email}}
-    message: finalMessage,   // {{message}}
-
-    from_name: "Hassan",
-    reply_to: "hassanfouzan07@gmail.com",
-    cc: "",
-    bcc: ""
-
-  }).then(() => {
-    alert("Email sent successfully ❤️");
-  }).catch((err) => {
-    console.log("Email error:", err);
-    alert("Failed to send email ❌");
-  });
 }
