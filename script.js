@@ -15,8 +15,7 @@ const noBtn = document.getElementById("noBtn");
 // =======================
 // INIT EMAILJS
 // =======================
-// ⚠️ Replace this later with your PUBLIC KEY from EmailJS dashboard
-emailjs.init("Ax_kppGI5ZZq01auI");
+emailjs.init("YOUR_PUBLIC_KEY");
 
 // =======================
 // YES BUTTON
@@ -85,7 +84,13 @@ Thank you, Hekmat ❤️
 `;
 
   document.getElementById("output").innerHTML = `
-    <p style="background:white;color:black;padding:15px;border-radius:10px;line-height:1.6;">
+    <p style="
+      background:white;
+      color:black;
+      padding:15px;
+      border-radius:10px;
+      line-height:1.6;
+    ">
       ${finalMessage}
     </p>
 
@@ -104,17 +109,22 @@ Thank you, Hekmat ❤️
 }
 
 // =======================
-// PDF DOWNLOAD
+// PDF DOWNLOAD (FIXED - NO EMOJI ERROR)
 // =======================
 function downloadPDF(text) {
 
   const { jsPDF } = window.jspdf;
   const doc = new jsPDF();
 
-  doc.setFontSize(12);
-  doc.text("❤️ Love Journey - Hekmat ❤️", 10, 20);
+  // 🔥 FIX: remove emojis to avoid corrupted PDF text
+  const cleanText = text.replace(/[\u{1F300}-\u{1FAFF}]/gu, "");
 
-  const lines = doc.splitTextToSize(text, 180);
+  doc.setFont("helvetica", "normal");
+  doc.setFontSize(12);
+
+  doc.text("Our Love Journey - Hekmat", 10, 20);
+
+  const lines = doc.splitTextToSize(cleanText, 180);
   doc.text(lines, 10, 40);
 
   doc.save("Hekmat_Love_Journey.pdf");
@@ -133,14 +143,16 @@ function shareWhatsApp(text) {
 }
 
 // =======================
-// EMAILJS SEND (UPDATED WITH YOUR IDs)
+// EMAILJS SEND
 // =======================
 function sendEmail(finalMessage) {
 
+  const userEmail = "hassanfouzan07@gmail.com";
+
   emailjs.send("service_nnc0er7", "template_neqxits", {
 
-    email: "hassanfouzan07@gmail.com",   // recipient email
-    message: finalMessage,
+    email: userEmail,        // {{email}}
+    message: finalMessage,   // {{message}}
 
     from_name: "Hassan",
     reply_to: "hassanfouzan07@gmail.com",
