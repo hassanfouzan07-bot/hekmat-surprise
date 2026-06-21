@@ -43,3 +43,7 @@ button {
   position: absolute;
   transition: 0.2s;
 }
+
+input {
+  margin-top: 10px;
+}
