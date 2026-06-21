@@ -1,177 +1,82 @@
-const terminal = document.getElementById("terminal");
-const startBtn = document.getElementById("startBtn");
-
-const lines = [
-"تشغيل love.exe...",
-"",
-"تحميل الذكريات... ████████ 100%",
-"تحميل السعادة... ████████ 100%",
-"تحميل الضحك... ████████ 100%",
-"",
-"جاري البحث عن أجمل بنت...",
-"",
-"تم العثور على المطابقة ❤️",
-"",
-"الاسم: حكمت",
-"الحالة: لا تُعوّض",
-"مالكة قلب حسن: تم التأكيد ✓"
+const questions = [
+  "Do you believe meeting someone can change life? 💫",
+  "Do you think some people are meant to stay forever? ❤️",
+  "Do you smile when you think of me? 😊",
+  "Do you feel comfortable with me around? 🌍",
+  "Would you continue this journey with me? 💍"
 ];
 
-let i = 0;
+let index = 0;
 
-function typeTerminal(){
+const questionEl = document.getElementById("question");
+const yesBtn = document.getElementById("yesBtn");
+const noBtn = document.getElementById("noBtn");
 
-if(i < lines.length){
+let answers = [];
 
-terminal.innerHTML += lines[i] + "\n";
+// YES → move forward
+yesBtn.addEventListener("click", () => {
+  answers.push("Yes ❤️");
+  index++;
 
-i++;
-
-setTimeout(typeTerminal,600);
-
-}else{
-
-startBtn.style.display="block";
-
-}
-
-}
-
-typeTerminal();
-
-startBtn.addEventListener("click",()=>{
-
-document.getElementById("terminal-screen").style.display="none";
-
-document.getElementById("mainContent").classList.remove("hidden");
-
-typeLetter();
-
-setInterval(createHeart,700);
-
+  if (index < questions.length) {
+    questionEl.innerText = questions[index];
+  } else {
+    showFinal();
+  }
 });
 
-const letter = `
-عزيزتي حكمت،
+// NO → escape behavior 😏
+noBtn.addEventListener("mouseover", () => {
+  const x = Math.random() * (window.innerWidth - 100);
+  const y = Math.random() * (window.innerHeight - 100);
 
-من بين كل الناس في الدنيا،
-بطريقة ما طرقنا اتقابلت.
+  noBtn.style.left = x + "px";
+  noBtn.style.top = y + "px";
 
-عدى أكتر من سنة،
-وبرضه كل ذكرى لسه حلوة زي الأول.
-
-كل ضحكة،
-كل كلام،
-كل لحظة مع بعض
-بقت جزء من قصة
-مش عايز أضيعها.
-
-المشروع الصغير ده مش مجرد كود.
-
-ده طريقتي أحول المشاعر
-لحاجة تقدري تشوفيها.
-
-شكرًا إنك جزء من حياتي.
-
- حكمت ❤️ حسن
-`;
-
-function typeLetter(){
-
-let x = 0;
-
-const area = document.getElementById("typingText");
-
-function write(){
-
-if(x < letter.length){
-
-area.innerHTML += letter.charAt(x);
-
-x++;
-
-setTimeout(write,40);
-
-}
-
-}
-
-write();
-
-}
-
-function createHeart(){
-
-const heart = document.createElement("div");
-
-heart.classList.add("heart");
-
-heart.innerHTML = "❤️";
-
-heart.style.left = Math.random()*100 + "vw";
-
-heart.style.fontSize =
-(20 + Math.random()*20) + "px";
-
-document.body.appendChild(heart);
-
-setTimeout(()=>{
-
-heart.remove();
-
-},5000);
-
-}
-
-const messages = [
-
-"❤️ أنتِ الإشعار المفضل عندي.",
-"❤️ تم فتح إنجاز: خلتِ حسن يبتسم.",
-"❤️ خطأ: مفيش حد أحسن من حكمت.",
-"❤️ تم العثور على ذكرى مخفية.",
-"❤️ بتخلي الأيام العادية مميزة."
-
-];
-
-function showSecret(){
-
-const random =
-messages[Math.floor(Math.random()*messages.length)];
-
-document.getElementById("secretMessage").innerHTML =
-random;
-
-}
-
-const noBtn =
-document.getElementById("noBtn");
-
-noBtn.addEventListener("mouseover",()=>{
-
-const x =
-Math.random()*(window.innerWidth-150);
-
-const y =
-Math.random()*(window.innerHeight-100);
-
-noBtn.style.position="fixed";
-noBtn.style.left=x+"px";
-noBtn.style.top=y+"px";
-
+  noBtn.innerText = "Try again 😏";
 });
 
-document
-.querySelector(".yes-btn")
-.addEventListener("click",()=>{
+// FINAL SCREEN
+function showFinal() {
+  document.getElementById("app").innerHTML = `
+    <h1>❤️ Journey Completed ❤️</h1>
+    <p>You didn’t just answer questions… you created a story with me.</p>
 
-alert(
-"❤️ شكرًا إنك جزء من قصتي يا حكمت ❤️"
-);
+    <button onclick="generateLove()">Generate Final Message 💌</button>
 
-for(let i=0;i<100;i++){
-
-setTimeout(createHeart,i*40);
-
+    <div id="output" style="margin-top:20px;"></div>
+  `;
 }
 
-});
+// FINAL LOVE PARAGRAPH + EMAIL
+function generateLove() {
+
+  const message = `
+From the moment this journey started, every answer you gave felt like a small step closer between two hearts. 
+
+What began as simple questions turned into something meaningful — a reminder that connections are not always found, sometimes they are built quietly through moments like these.
+
+If you are reading this, it means you chose “Yes” through the journey of emotions, curiosity, and connection. And maybe that “Yes” says more than just a word — maybe it reflects comfort, trust, and something special growing silently.
+
+I don’t know what the future holds, but I do know this moment mattered. And I’m glad you are part of it. ❤️
+  `;
+
+  document.getElementById("output").innerHTML = `
+    <p style="background:white;color:black;padding:15px;border-radius:10px;">
+      ${message}
+    </p>
+  `;
+
+  sendEmail(message);
+}
+
+// EMAIL FUNCTION
+function sendEmail(finalMessage) {
+  emailjs.send("YOUR_SERVICE_ID", "YOUR_TEMPLATE_ID", {
+    to_email: "her_email@example.com",
+    message: finalMessage
+  }).then(() => {
+    alert("Love message sent ❤️");
+  });
+}
