@@ -7,15 +7,11 @@ const questions = [
 ];
 
 let index = 0;
+window.finalMessageGlobal = "";
 
 const questionEl = document.getElementById("question");
 const yesBtn = document.getElementById("yesBtn");
 const noBtn = document.getElementById("noBtn");
-
-// =======================
-// INIT EMAILJS
-// =======================
-emailjs.init("YOUR_PUBLIC_KEY");
 
 // =======================
 // YES BUTTON
@@ -47,7 +43,7 @@ noBtn.addEventListener("mouseover", () => {
 function showFinalScreen() {
   document.getElementById("app").innerHTML = `
     <h1>❤️ Journey Completed ❤️</h1>
-    <p>You created something beautiful… now let’s save it 💌</p>
+    <p>Now let’s save your love story 💌</p>
 
     <button onclick="generateLove()">
       💌 Generate Love Summary
@@ -58,11 +54,11 @@ function showFinalScreen() {
 }
 
 // =======================
-// GENERATE LOVE MESSAGE
+// GENERATE MESSAGE
 // =======================
 function generateLove() {
 
-  const finalMessage = `
+  window.finalMessageGlobal = `
 ❤️ OUR LOVE JOURNEY SUMMARY ❤️
 
 Dear Hekmat,
@@ -71,10 +67,10 @@ From the very beginning, this journey felt different.
 
 Every answer you gave became a small step closer between two hearts.
 
-What started as simple questions slowly turned into something meaningful.
+What started as simple questions slowly turned into something meaningful — a memory created between us.
 
 Maybe it was just a website…
-but it became a memory.
+but it became something special.
 
 Thank you, Hekmat ❤️
 
@@ -83,33 +79,24 @@ Thank you, Hekmat ❤️
 
   document.getElementById("output").innerHTML = `
     <p style="background:white;color:black;padding:15px;border-radius:10px;line-height:1.6;">
-      ${finalMessage}
+      ${window.finalMessageGlobal}
     </p>
 
     <input id="emailInput" type="email"
-      placeholder="Enter your email ❤️"
-      style="padding:10px;width:80%;border-radius:10px;border:1px solid #ccc;">
+      placeholder="Enter your email ❤️">
 
     <br>
 
-    <button onclick="sendEmail(finalMessage)">
-      💌 Send Email
-    </button>
-
-    <button onclick="downloadPDF(finalMessage)">
-      📄 Download PDF
-    </button>
-
-    <button onclick="shareWhatsApp(finalMessage)">
-      📱 WhatsApp Share
-    </button>
+    <button onclick="sendEmail()">💌 Send Email</button>
+    <button onclick="downloadPDF()">📄 Download PDF</button>
+    <button onclick="shareWhatsApp()">📱 WhatsApp Share</button>
   `;
 }
 
 // =======================
-// EMAIL SEND
+// EMAILJS
 // =======================
-function sendEmail(finalMessage) {
+function sendEmail() {
 
   const userEmail = document.getElementById("emailInput").value;
 
@@ -121,30 +108,28 @@ function sendEmail(finalMessage) {
   emailjs.send("service_nnc0er7", "template_neqxits", {
 
     email: userEmail,
-    message: finalMessage,
-
+    message: window.finalMessageGlobal,
     from_name: "Hassan",
-    reply_to: "hassanfouzan07@gmail.com",
-    cc: "",
-    bcc: ""
+    reply_to: "hassanfouzan07@gmail.com"
 
   }).then(() => {
     alert("💌 Email sent successfully!");
-  }).catch((err) => {
+  }).catch(err => {
     console.log(err);
-    alert("Failed to send email ❌");
+    alert("Email failed ❌ Check console");
   });
 }
 
 // =======================
 // PDF DOWNLOAD (FIXED)
 // =======================
-function downloadPDF(text) {
+function downloadPDF() {
 
   const { jsPDF } = window.jspdf;
   const doc = new jsPDF();
 
-  const cleanText = text.replace(/[\u{1F300}-\u{1FAFF}]/gu, "");
+  const cleanText = window.finalMessageGlobal
+    .replace(/[\u{1F300}-\u{1FAFF}]/gu, "");
 
   doc.setFontSize(12);
   doc.text("Love Journey - Hekmat", 10, 20);
@@ -158,10 +143,10 @@ function downloadPDF(text) {
 // =======================
 // WHATSAPP SHARE
 // =======================
-function shareWhatsApp(text) {
+function shareWhatsApp() {
 
   const url = "https://wa.me/?text=" + encodeURIComponent(
-    text + "\n\n❤️ Created with love by Hassan"
+    window.finalMessageGlobal + "\n\n❤️ Created by Hassan"
   );
 
   window.open(url, "_blank");
