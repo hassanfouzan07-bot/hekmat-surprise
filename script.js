@@ -43,7 +43,7 @@ noBtn.addEventListener("mouseover", () => {
 function showFinalScreen() {
   document.getElementById("app").innerHTML = `
     <h1>❤️ Journey Completed ❤️</h1>
-    <p>Now let’s save your love story 💌</p>
+    <p>Now save your love story 💌</p>
 
     <button onclick="generateLove()">
       💌 Generate Love Summary
@@ -67,10 +67,10 @@ From the very beginning, this journey felt different.
 
 Every answer you gave became a small step closer between two hearts.
 
-What started as simple questions slowly turned into something meaningful — a memory created between us.
+What started as simple questions slowly turned into something meaningful.
 
 Maybe it was just a website…
-but it became something special.
+but it became a memory worth keeping.
 
 Thank you, Hekmat ❤️
 
@@ -78,14 +78,20 @@ Thank you, Hekmat ❤️
 `;
 
   document.getElementById("output").innerHTML = `
-    <p style="background:white;color:black;padding:15px;border-radius:10px;line-height:1.6;">
+    <p style="
+      background:white;
+      color:black;
+      padding:15px;
+      border-radius:10px;
+      line-height:1.6;
+    ">
       ${window.finalMessageGlobal}
     </p>
 
     <input id="emailInput" type="email"
       placeholder="Enter your email ❤️">
 
-    <br>
+    <br><br>
 
     <button onclick="sendEmail()">💌 Send Email</button>
     <button onclick="downloadPDF()">📄 Download PDF</button>
@@ -94,7 +100,7 @@ Thank you, Hekmat ❤️
 }
 
 // =======================
-// EMAILJS
+// EMAIL (SUCCESS MESSAGE FIXED)
 // =======================
 function sendEmail() {
 
@@ -113,15 +119,15 @@ function sendEmail() {
     reply_to: "hassanfouzan07@gmail.com"
 
   }).then(() => {
-    alert("💌 Email sent successfully!");
+    alert("💌 Email submitted successfully!");
   }).catch(err => {
     console.log(err);
-    alert("Email failed ❌ Check console");
+    alert("❌ Email failed");
   });
 }
 
 // =======================
-// PDF DOWNLOAD (FIXED)
+// PDF (SUCCESS MESSAGE FIXED)
 // =======================
 function downloadPDF() {
 
@@ -138,10 +144,12 @@ function downloadPDF() {
   doc.text(lines, 10, 40);
 
   doc.save("Hekmat_Love_Journey.pdf");
+
+  alert("📄 PDF downloaded successfully!");
 }
 
 // =======================
-// WHATSAPP SHARE
+// WHATSAPP (SUCCESS MESSAGE FIXED)
 // =======================
 function shareWhatsApp() {
 
@@ -150,4 +158,6 @@ function shareWhatsApp() {
   );
 
   window.open(url, "_blank");
+
+  alert("📱 WhatsApp opened successfully!");
 }
